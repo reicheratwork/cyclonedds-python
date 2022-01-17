@@ -7,7 +7,7 @@ from support_modules.fuzz_tools.rand_idl.context_containers import FullContext
 from support_modules.fuzz_tools.rand_idl.creator import generate_random_types
 from support_modules.fuzz_tools.utility.stream import Stream, FileStream
 
-from support_modules.fuzz_tools.checks.typeobject import check_type_object_equivalence
+#from support_modules.fuzz_tools.checks.typeobject import check_type_object_equivalence
 from support_modules.fuzz_tools.checks.keys import check_py_c_key_equivalence, check_py_pyc_key_equivalence
 from support_modules.fuzz_tools.checks.mutated import check_mutation_assignability, check_mutation_key, check_enforced_non_communication
 
@@ -28,7 +28,7 @@ def test_fuzzing_types(fuzzing_config: FuzzingConfig):
 
         typelog = Stream()
         success = True
-        success &= check_type_object_equivalence(typelog, ctx, typename)
+        #success &= check_type_object_equivalence(typelog, ctx, typename)
         success &= check_py_pyc_key_equivalence(typelog, ctx, typename, fuzzing_config.num_samples)
 
         if success:

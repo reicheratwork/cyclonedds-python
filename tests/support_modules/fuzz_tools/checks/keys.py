@@ -66,6 +66,7 @@ def check_py_c_key_equivalence(log: Stream, ctx: FullContext, typename: str, num
         Policy.DataRepresentation(use_xcdrv2_representation=True),
         Policy.History.KeepLast(len(samples)),
         Policy.Reliability.Reliable(duration(seconds=2)),
+        Policy.TypeConsistency.AllowTypeCoercion(),
         Policy.DestinationOrder.BySourceTimestamp
     ))
     dw.set_status_mask(DDSStatus.PublicationMatched)
@@ -111,6 +112,10 @@ def check_py_c_key_equivalence(log: Stream, ctx: FullContext, typename: str, num
     for i in range(min(len(hashes), len(samples))):
         c_key = hashes[i]
         py_key = datatype.__idl__.key(samples[i])
+
+        if len(py_key) < 16:
+            for i in range(len(py_key),16):
+                py_key += b'\0'
 
         if not py_key == c_key:
             log << "PY-C Keys do not match!" << log.endl << log.indent

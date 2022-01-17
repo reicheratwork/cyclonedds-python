@@ -147,6 +147,7 @@ class FullContext:
                 zipf.writestr(f"reproducer/{file.relative_to(c_app_dir)}", f.read())
 
         zipf.writestr('reproducer/xtypes_dynamic_index.c', self.c_app.xtypes_dynamic_index)
+        #zipf.writestr('reproducer/switch.cpp', self.c_app.xtypes_dynamic_index)
 
         zipf.writestr('reproducer/regenerate.sh', textwrap.dedent("""
             #!/bin/bash
